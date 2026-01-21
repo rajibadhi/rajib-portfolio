@@ -49,12 +49,12 @@ export default function App() {
     <div className="container">
       {/* HERO */}
       <section className="hero">
-        <div className="heroCard">
+        <div className="heroCard center">
           <img className="avatar" src={profile} alt="Rajib Adhikari" />
 
           <p className="kicker">IT Support and Frontend</p>
           <h1>Rajib Adhikari</h1>
-          <p className="subtitle">
+          <p className="subtitle centerText">
             I build reliable IT systems and clean fast web apps using React.
           </p>
 
@@ -80,9 +80,9 @@ export default function App() {
 
       {/* ABOUT */}
       <section className="section" id="about">
-        <div className="sectionHead">
+        <div className="sectionHead centerText">
           <h2>About Me</h2>
-          <p className="muted">
+          <p className="muted maxW">
             Nepal based IT professional with strong hands on experience in infrastructure support and modern web development.
           </p>
         </div>
@@ -90,7 +90,7 @@ export default function App() {
         <div className="grid2">
           <div className="card">
             <h3>Who I am</h3>
-            <p>
+            <p className="muted">
               I work across end to end IT operations from user support to server administration networking firewall management and CCTV systems.
               I also build web apps with React focused on performance and clean UI.
             </p>
@@ -110,9 +110,9 @@ export default function App() {
 
       {/* WHAT I DO */}
       <section className="section">
-        <div className="sectionHead">
+        <div className="sectionHead centerText">
           <h2>What I Do</h2>
-          <p className="muted">A quick snapshot of my practical strengths.</p>
+          <p className="muted maxW">A quick snapshot of my practical strengths.</p>
         </div>
 
         <div className="grid3">
@@ -139,9 +139,9 @@ export default function App() {
 
       {/* SKILLS */}
       <section className="section" id="skills">
-        <div className="sectionHead">
+        <div className="sectionHead centerText">
           <h2>Skills</h2>
-          <p className="muted">Tools and technologies I use in real projects and daily operations.</p>
+          <p className="muted maxW">Tools and technologies I use in real projects and daily operations.</p>
         </div>
 
         <div className="grid2">
@@ -162,9 +162,9 @@ export default function App() {
 
       {/* PROJECTS */}
       <section className="section" id="projects">
-        <div className="sectionHead">
+        <div className="sectionHead centerText">
           <h2>Projects</h2>
-          <p className="muted">Selected work and live deployments.</p>
+          <p className="muted maxW">Selected work and live deployments.</p>
         </div>
 
         <div className="grid2">
@@ -183,13 +183,9 @@ export default function App() {
 
               <p className="muted">{p.desc}</p>
 
-              {p.link ? (
-                <a className="link" href={p.link} target="_blank" rel="noreferrer">
-                  View Project →
-                </a>
-              ) : (
-                <span className="muted">Link coming soon</span>
-              )}
+              <a className="link" href={p.link} target="_blank" rel="noreferrer">
+                View Project →
+              </a>
             </div>
           ))}
         </div>
@@ -197,33 +193,19 @@ export default function App() {
 
       {/* CONTACT */}
       <section className="section" id="contact">
-        <div className="sectionHead">
+        <div className="sectionHead centerText">
           <h2>Contact</h2>
-          <p className="muted">For jobs freelance or collaboration.</p>
+          <p className="muted maxW">For collaboration.</p>
         </div>
 
         <div className="card">
           <div className="contactRow">
             <div>
               <p className="label">Email</p>
-              <p className="value">rajibadhikari@email.com</p>
+              <p className="value">rajibadh@gmail.com</p>
             </div>
-            <a className="btn small" href="mailto:rajibadhikari@email.com">
+            <a className="btn small" href="mailto:rajibadh@gmail.com">
               Email Me
-            </a>
-          </div>
-
-          <div className="divider" />
-
-          <div className="contactRow">
-            <div>
-              <p className="label">GitHub</p>
-              <a className="value link" href="https://github.com/rajibadhi" target="_blank" rel="noreferrer">
-                github.com/rajibadhi
-              </a>
-            </div>
-            <a className="btn small ghost" href="https://github.com/rajibadhi" target="_blank" rel="noreferrer">
-              View Profile
             </a>
           </div>
         </div>
