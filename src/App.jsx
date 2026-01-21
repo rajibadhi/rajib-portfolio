@@ -1,65 +1,235 @@
 import "./App.css";
+import profile from "./assets/rajib.jpeg";
+
+const skills = [
+  {
+    title: "Core IT",
+    items: [
+      "Windows Server",
+      "Linux Administration",
+      "Active Directory",
+      "Networking",
+      "Sophos Firewall",
+      "CCTV and IP Camera",
+      "Attendance System",
+      "IT Support and Troubleshooting",
+    ],
+  },
+  {
+    title: "Cloud and DevOps",
+    items: ["AWS", "Cloud Basics", "Backup and Recovery", "Monitoring Basics"],
+  },
+  {
+    title: "Web",
+    items: ["HTML", "CSS", "JavaScript", "React", "Vite", "Firebase"],
+  },
+  {
+    title: "Tools",
+    items: ["Git and GitHub", "Remote Support", "Documentation", "Asset Tracking"],
+  },
+];
+
+const projects = [
+  {
+    name: "CashMate Nepal",
+    desc: "Personal finance and bookkeeping web app.",
+    link: "https://cashmate.rajibadhikari.com.np",
+    tags: ["React", "Vite", "Firebase"],
+  },
+  {
+    name: "Portfolio Website",
+    desc: "Personal portfolio built with React and Vite deployed on Vercel.",
+    link: "https://rajibadhikari.com.np",
+    tags: ["React", "Vite", "Vercel"],
+  },
+];
 
 export default function App() {
   return (
     <div className="container">
       {/* HERO */}
       <section className="hero">
-        <h1>Rajib Adhikari</h1>
-        <p>Frontend Developer | React | Vite</p>
-        <a href="#contact" className="btn">Contact Me</a>
+        <div className="heroCard">
+          <img className="avatar" src={profile} alt="Rajib Adhikari" />
+
+          <p className="kicker">IT Support and Frontend</p>
+          <h1>Rajib Adhikari</h1>
+          <p className="subtitle">
+            I build reliable IT systems and clean fast web apps using React.
+          </p>
+
+          <div className="heroChips">
+            <span className="chip">Windows Server</span>
+            <span className="chip">Linux</span>
+            <span className="chip">AWS</span>
+            <span className="chip">Networking</span>
+            <span className="chip">Sophos Firewall</span>
+            <span className="chip">React</span>
+          </div>
+
+          <div className="heroActions">
+            <a href="#contact" className="btn">
+              Contact Me
+            </a>
+            <a href="#projects" className="btn ghost">
+              View Work
+            </a>
+          </div>
+        </div>
       </section>
 
       {/* ABOUT */}
+      <section className="section" id="about">
+        <div className="sectionHead">
+          <h2>About Me</h2>
+          <p className="muted">
+            Nepal based IT professional with strong hands on experience in infrastructure support and modern web development.
+          </p>
+        </div>
+
+        <div className="grid2">
+          <div className="card">
+            <h3>Who I am</h3>
+            <p>
+              I work across end to end IT operations from user support to server administration networking firewall management and CCTV systems.
+              I also build web apps with React focused on performance and clean UI.
+            </p>
+          </div>
+
+          <div className="card">
+            <h3>What I focus on</h3>
+            <ul className="list">
+              <li>Stable systems and fast resolution</li>
+              <li>Security first mindset and access control</li>
+              <li>Documentation and preventive maintenance</li>
+              <li>Simple scalable web experiences</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* WHAT I DO */}
       <section className="section">
-        <h2>About Me</h2>
-        <p>
-          I am a passionate frontend developer from Nepal. I love building
-          clean, fast, and responsive web applications using React.
-        </p>
+        <div className="sectionHead">
+          <h2>What I Do</h2>
+          <p className="muted">A quick snapshot of my practical strengths.</p>
+        </div>
+
+        <div className="grid3">
+          <div className="card">
+            <h3>IT Operations</h3>
+            <p className="muted">
+              Helpdesk support asset management backup planning and routine maintenance.
+            </p>
+          </div>
+          <div className="card">
+            <h3>Infrastructure</h3>
+            <p className="muted">
+              Windows Server Active Directory user policies permissions and Linux administration.
+            </p>
+          </div>
+          <div className="card">
+            <h3>Network and Security</h3>
+            <p className="muted">
+              Network troubleshooting Sophos firewall rules VPN and CCTV IP camera setup.
+            </p>
+          </div>
+        </div>
       </section>
 
       {/* SKILLS */}
-      <section className="section">
-        <h2>Skills</h2>
-        <div className="skills">
-          <span>HTML</span>
-          <span>CSS</span>
-          <span>JavaScript</span>
-          <span>React</span>
-          <span>Vite</span>
-          <span>Firebase</span>
+      <section className="section" id="skills">
+        <div className="sectionHead">
+          <h2>Skills</h2>
+          <p className="muted">Tools and technologies I use in real projects and daily operations.</p>
+        </div>
+
+        <div className="grid2">
+          {skills.map((group) => (
+            <div className="card" key={group.title}>
+              <h3>{group.title}</h3>
+              <div className="skills">
+                {group.items.map((s) => (
+                  <span key={s} className="pill">
+                    {s}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
       {/* PROJECTS */}
-      <section className="section">
-        <h2>Projects</h2>
-
-        <div className="project">
-          <h3>CashMate Nepal</h3>
-          <p>Personal finance & bookkeeping web app.</p>
-          <a href="https://cashmate.rajibadhikari.com.np" target="_blank">
-            View Project →
-          </a>
+      <section className="section" id="projects">
+        <div className="sectionHead">
+          <h2>Projects</h2>
+          <p className="muted">Selected work and live deployments.</p>
         </div>
 
-        <div className="project">
-          <h3>Portfolio Website</h3>
-          <p>My personal portfolio built with React + Vite.</p>
+        <div className="grid2">
+          {projects.map((p) => (
+            <div className="card projectCard" key={p.name}>
+              <div className="projectTop">
+                <h3>{p.name}</h3>
+                <div className="tagRow">
+                  {p.tags.map((t) => (
+                    <span className="tag" key={t}>
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <p className="muted">{p.desc}</p>
+
+              {p.link ? (
+                <a className="link" href={p.link} target="_blank" rel="noreferrer">
+                  View Project →
+                </a>
+              ) : (
+                <span className="muted">Link coming soon</span>
+              )}
+            </div>
+          ))}
         </div>
       </section>
 
       {/* CONTACT */}
       <section className="section" id="contact">
-        <h2>Contact</h2>
-        <p>Email: <b>rajibadhikari@email.com</b></p>
-        <p>GitHub: <a href="https://github.com/rajibadhi" target="_blank">github.com/rajibadhi</a></p>
+        <div className="sectionHead">
+          <h2>Contact</h2>
+          <p className="muted">For jobs freelance or collaboration.</p>
+        </div>
+
+        <div className="card">
+          <div className="contactRow">
+            <div>
+              <p className="label">Email</p>
+              <p className="value">rajibadhikari@email.com</p>
+            </div>
+            <a className="btn small" href="mailto:rajibadhikari@email.com">
+              Email Me
+            </a>
+          </div>
+
+          <div className="divider" />
+
+          <div className="contactRow">
+            <div>
+              <p className="label">GitHub</p>
+              <a className="value link" href="https://github.com/rajibadhi" target="_blank" rel="noreferrer">
+                github.com/rajibadhi
+              </a>
+            </div>
+            <a className="btn small ghost" href="https://github.com/rajibadhi" target="_blank" rel="noreferrer">
+              View Profile
+            </a>
+          </div>
+        </div>
       </section>
 
-      <footer>
-        © {new Date().getFullYear()} Rajib Adhikari
-      </footer>
+      <footer className="footer">© {new Date().getFullYear()} Rajib Adhikari</footer>
     </div>
   );
 }
