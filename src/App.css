@@ -1,42 +1,100 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, Arial, sans-serif;
+}
+
+body {
+  background: #0f172a;
+  color: #e5e7eb;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* HERO */
+.hero {
   text-align: center;
+  padding: 80px 20px;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.hero h1 {
+  font-size: 3rem;
+  color: #38bdf8;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.hero p {
+  margin: 15px 0;
+  font-size: 1.2rem;
+  color: #cbd5f5;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 24px;
+  background: #38bdf8;
+  color: #020617;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
 }
 
-.card {
-  padding: 2em;
+.btn:hover {
+  background: #0ea5e9;
 }
 
-.read-the-docs {
-  color: #888;
+/* SECTIONS */
+.section {
+  margin: 60px 0;
+}
+
+.section h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #38bdf8;
+}
+
+/* SKILLS */
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.skills span {
+  background: #1e293b;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+/* PROJECTS */
+.project {
+  background: #020617;
+  border: 1px solid #1e293b;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.project h3 {
+  margin-bottom: 8px;
+}
+
+.project a {
+  color: #38bdf8;
+  text-decoration: none;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  margin-top: 80px;
+  font-size: 0.9rem;
+  color: #94a3b8;
 }
