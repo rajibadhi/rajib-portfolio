@@ -52,10 +52,10 @@ export default function App() {
         <div className="heroCard center">
           <img className="avatar" src={profile} alt="Rajib Adhikari" />
 
-          <p className="kicker">IT Support and Frontend</p>
+          <p className="kicker">IT Support and Operations</p>
           <h1>Rajib Adhikari</h1>
           <p className="subtitle centerText">
-            I build reliable IT systems and clean fast web apps using React.
+            I build reliable high performance IT systems.
           </p>
 
           <div className="heroChips">
@@ -91,8 +91,8 @@ export default function App() {
           <div className="card">
             <h3>Who I am</h3>
             <p className="muted">
-              I work across end to end IT operations from user support to server administration networking firewall management and CCTV systems.
-              I also build web apps with React focused on performance and clean UI.
+              I work across end to end IT operations from user support to server administration networking firewall
+              management and CCTV systems with a strong focus on stability reliability and efficient issue resolution.
             </p>
           </div>
 
