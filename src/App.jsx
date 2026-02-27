@@ -33,7 +33,7 @@ const projects = [
   {
     name: "CashMate Nepal",
     desc: "Personal finance and bookkeeping web app.",
-    link: "https://cashmate.rajibadhikari.com.np",
+    link: "https://rajibadh.rajibadhikari.com.np",
     tags: ["React", "Vite", "Firebase"],
   },
   {
