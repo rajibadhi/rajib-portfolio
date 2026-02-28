@@ -2,42 +2,36 @@ import "./App.css";
 import profile from "./assets/rajib.jpeg";
 import { useEffect } from "react";
 
-const skills = [
+const experience = [
   {
-    title: "Core Infrastructure",
-    items: [
-      "Windows Server",
-      "Linux",
-      "Active Directory",
-      "Networking",
-      "Sophos Firewall",
-      "CCTV Systems",
-    ],
+    role: "IT Operations Officer",
+    company: "Your Company",
+    period: "2022 Present",
+    desc: "Managing infrastructure security monitoring backup strategy and enterprise user support."
   },
   {
-    title: "Cloud",
-    items: ["AWS", "Backup Strategy", "Monitoring", "Disaster Recovery"],
-  },
-  {
-    title: "Development",
-    items: ["React", "Vite", "Firebase", "JavaScript"],
-  },
+    role: "IT Support Executive",
+    company: "Previous Company",
+    period: "2020 2022",
+    desc: "Handled networking firewall configuration system deployment and troubleshooting."
+  }
 ];
 
 const projects = [
   {
     name: "CashMate Nepal",
-    desc: "Real time finance tracking system with authentication and cloud database.",
-    link: "https://rajibadh.rajibadhikari.com.np",
+    desc: "Cloud based finance system with authentication real time data and structured reporting.",
+    link: "https://rajibadh.rajibadhikari.com.np"
   },
   {
     name: "Portfolio Website",
-    desc: "Performance focused portfolio deployed on Vercel with modern UI design.",
-    link: "https://rajibadhikari.com.np",
-  },
+    desc: "Performance optimized React portfolio deployed globally with CI CD workflow.",
+    link: "https://rajibadhikari.com.np"
+  }
 ];
 
 export default function App() {
+
   useEffect(() => {
     const reveals = document.querySelectorAll(".reveal");
     const observer = new IntersectionObserver(
@@ -55,12 +49,13 @@ export default function App() {
 
   return (
     <>
+      <div className="bgAnimation"></div>
+
       <nav className="nav">
         <div className="navInner">
           <div className="logo">RA</div>
           <div className="navLinks">
-            <a href="#about">About</a>
-            <a href="#skills">Skills</a>
+            <a href="#experience">Experience</a>
             <a href="#projects">Projects</a>
             <a href="#contact">Contact</a>
           </div>
@@ -68,36 +63,25 @@ export default function App() {
       </nav>
 
       <div className="container">
+
         <section className="hero reveal">
-          <img className="avatar" src={profile} alt="Rajib" />
+          <img src={profile} className="avatar" alt="Rajib" />
           <h1 className="gradientText">Rajib Adhikari</h1>
           <p className="subtitle">
-            IT Operations Specialist focused on secure infrastructure and scalable systems.
+            IT Infrastructure and Systems Engineer  
+            Building Secure Scalable and Reliable Digital Environments
           </p>
-          <div className="heroActions">
-            <a href="#contact" className="btn">Hire Me</a>
-            <a href="#projects" className="btn ghost">View Work</a>
-          </div>
+          <a href="/Rajib_Adhikari_CV.pdf" className="btn">Download Resume</a>
         </section>
 
-        <section id="about" className="section reveal">
-          <h2>About</h2>
-          <p className="muted centerText maxW">
-            I manage enterprise IT systems focusing on uptime performance security and structured documentation.
-          </p>
-        </section>
-
-        <section id="skills" className="section reveal">
-          <h2>Skills</h2>
-          <div className="grid3">
-            {skills.map(group => (
-              <div key={group.title} className="card">
-                <h3>{group.title}</h3>
-                <div className="skills">
-                  {group.items.map(item => (
-                    <span key={item} className="pill">{item}</span>
-                  ))}
-                </div>
+        <section id="experience" className="section reveal">
+          <h2>Experience</h2>
+          <div className="timeline">
+            {experience.map((exp, index) => (
+              <div key={index} className="timelineItem">
+                <h3>{exp.role}</h3>
+                <span>{exp.company} | {exp.period}</span>
+                <p>{exp.desc}</p>
               </div>
             ))}
           </div>
@@ -106,13 +90,11 @@ export default function App() {
         <section id="projects" className="section reveal">
           <h2>Projects</h2>
           <div className="grid2">
-            {projects.map(p => (
-              <div key={p.name} className="card projectCard">
+            {projects.map((p, i) => (
+              <div key={i} className="card">
                 <h3>{p.name}</h3>
-                <p className="muted">{p.desc}</p>
-                <a href={p.link} target="_blank" rel="noreferrer" className="link">
-                  Visit Project
-                </a>
+                <p>{p.desc}</p>
+                <a href={p.link} target="_blank" rel="noreferrer">Visit Project</a>
               </div>
             ))}
           </div>
@@ -121,8 +103,8 @@ export default function App() {
         <section id="contact" className="section reveal">
           <h2>Contact</h2>
           <div className="card contactCard">
-            <p className="muted">Available for collaboration and opportunities.</p>
-            <a className="btn small" href="mailto:rajibadh@gmail.com">
+            <p>Open for opportunities and collaboration.</p>
+            <a href="mailto:rajibadh@gmail.com" className="btn small">
               rajibadh@gmail.com
             </a>
           </div>
@@ -131,6 +113,7 @@ export default function App() {
         <footer className="footer">
           © {new Date().getFullYear()} Rajib Adhikari
         </footer>
+
       </div>
     </>
   );
