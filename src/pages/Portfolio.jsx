@@ -107,8 +107,7 @@ function ContactForm() {
       await emailjs.send(
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
-        { from_name: form.name, from_email: form.email, message: form.message, to_name: 'Rajib' },
-        EMAILJS_PUBLIC_KEY
+        { name: form.name, email: form.email, message: form.message },        EMAILJS_PUBLIC_KEY
       );
       setStatus('success');
       setForm({ name:'', email:'', message:'' });
