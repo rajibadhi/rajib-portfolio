@@ -349,6 +349,61 @@ body {
 .adminDeleteBtn { flex-shrink: 0; padding: 8px 14px; border-radius: 9px; border: 1px solid rgba(239,68,68,0.25); background: rgba(239,68,68,0.08); color: #f87171; font-size: 0.82rem; cursor: pointer; transition: background 0.18s; white-space: nowrap; }
 .adminDeleteBtn:hover { background: rgba(239,68,68,0.18); }
 
+/* ─── HAMBURGER ──────────────────────────────────────────── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 7px;
+}
+.hamburger span {
+  display: block;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: transform 0.25s, opacity 0.25s;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.mobileMenu {
+  position: fixed;
+  top: var(--nav-h);
+  left: 0; right: 0;
+  background: rgba(7,11,20,0.97);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  padding: 12px 20px 20px;
+  z-index: 99;
+  gap: 4px;
+}
+.mobileLink {
+  padding: 13px 16px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--muted);
+  transition: background 0.18s, color 0.18s;
+}
+.mobileLink:hover { background: var(--panel2); color: var(--text); }
+.mobileCta {
+  margin-top: 8px;
+  text-align: center;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff !important;
+  font-weight: 700;
+}
+
 /* ─── RESPONSIVE ─────────────────────────────────────────── */
 @media (max-width: 960px) {
   .certGrid { grid-template-columns: repeat(2, 1fr); }
@@ -362,6 +417,7 @@ body {
 
 @media (max-width: 720px) {
   .navLinks { display: none; }
+  .hamburger { display: flex; }
   .heroCard { padding: 30px 22px; }
   .heroSplit { flex-direction: column-reverse; gap: 28px; text-align: center; }
   .heroLeft .heroChips, .heroLeft .heroActions { justify-content: center; }
