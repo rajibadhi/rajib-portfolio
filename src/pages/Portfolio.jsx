@@ -44,7 +44,6 @@ const experience = [
   {
     icon: "🖥️",
     role: "Senior IT Executive",
-    company: "Maharaja Casino (Marriott Kathmandu)",
     period: "Current",
     desc: "End-to-end IT operations — server administration, Active Directory, Sophos firewall management, CCTV infrastructure, network troubleshooting, and user support for a premium hospitality environment.",
   },
