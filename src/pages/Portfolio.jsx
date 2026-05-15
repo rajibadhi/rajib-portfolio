@@ -3,48 +3,36 @@ import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { db } from '../firebase';
 import profile from '../assets/rajib.jpeg';
 
-/* ─── EMAILJS KEYS ────────────────────────────────────────── */
+/* ─── EMAILJS ─────────────────────────────────────────────── */
 const EMAILJS_SERVICE_ID  = "service_pbi0pzj";
 const EMAILJS_TEMPLATE_ID = "template_02sbq9j";
 const EMAILJS_PUBLIC_KEY  = "XoIU40ZK41ykpS0ms";
 
-/* ─── SCROLL REVEAL HOOK ──────────────────────────────────── */
-function useReveal() {
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
-      { threshold: 0.1 }
-    );
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-}
-
-/* ─── STATIC DATA ─────────────────────────────────────────── */
-const skills = [
+/* ─── FALLBACK DATA (shown if Firestore empty) ────────────── */
+const DEFAULT_SKILLS = [
   { title:"Core IT & Infrastructure",   items:["Windows Server","Linux Administration","Active Directory","Networking","Sophos Firewall","CCTV & IP Camera","Attendance System","IT Support & Troubleshooting"] },
   { title:"Cloud & DevOps",             items:["AWS","Firebase (Firestore, Auth)","Vercel","EAS Build","Docker Basics","Backup & Recovery","Monitoring & Alerting"] },
   { title:"Web & Mobile Development",   items:["React","React Native","Expo & Expo Router","TypeScript","JavaScript","Vite","HTML & CSS"] },
   { title:"Tools & Practices",          items:["Git & GitHub","AdMob Integration","Remote Support","Documentation","Asset Tracking","Agile Basics"] },
 ];
 
-const projects = [
-  { icon:"💰", name:"CashMate Nepal",    desc:"Full-featured business ledger and personal finance app built with React Native (Expo), Firebase Firestore for real-time sync, AdMob monetization, and deployed as a web app via Vercel.", link:"https://cashmate.rajibadhikari.com.np", tags:["React Native","Expo","Firebase","TypeScript","AdMob"] },
-  { icon:"🌐", name:"Portfolio Website", desc:"Personal portfolio with a Firebase-powered dynamic CMS — admin panel for managing gallery photos and software downloads. Deployed on Vercel with CI/CD.", link:"https://rajibadhikari.com.np", tags:["React","Vite","Firebase","Vercel"] },
+const DEFAULT_PROJECTS = [
+  { icon:"💰", name:"CashMate Nepal",    description:"Full-featured business ledger and personal finance app built with React Native (Expo), Firebase Firestore for real-time sync, AdMob monetization, and deployed as a web app via Vercel.", link:"https://cashmate.rajibadhikari.com.np", tags:["React Native","Expo","Firebase","TypeScript","AdMob"] },
+  { icon:"🌐", name:"Portfolio Website", description:"Personal portfolio with a Firebase-powered dynamic CMS — admin panel for managing all content. Deployed on Vercel with CI/CD.", link:"https://rajibadhikari.com.np", tags:["React","Vite","Firebase","Vercel"] },
 ];
 
-const experience = [
-  { icon:"🖥️", role:"Senior IT Executive",        company:"Hospitality & Gaming Industry", period:"Current",        desc:"End-to-end IT operations — server administration, Active Directory, Sophos firewall management, CCTV infrastructure, network troubleshooting, and user support in a high-availability enterprise environment." },
-  { icon:"💻", role:"Frontend & Mobile Developer", company:"Freelance / Personal Projects",  period:"2024 – Present", desc:"Designing and shipping production web and mobile apps using React, React Native (Expo), and Firebase. Focus on performance, clean UI, and real-world deployment pipelines." },
+const DEFAULT_EXPERIENCE = [
+  { icon:"🖥️", role:"Senior IT Executive",        company:"Hospitality & Gaming Industry", period:"Current",        description:"End-to-end IT operations — server administration, Active Directory, Sophos firewall management, CCTV infrastructure, network troubleshooting, and user support in a high-availability enterprise environment." },
+  { icon:"💻", role:"Frontend & Mobile Developer", company:"Freelance / Personal Projects",  period:"2024 – Present", description:"Designing and shipping production web and mobile apps using React, React Native (Expo), and Firebase. Focus on performance, clean UI, and real-world deployment pipelines." },
 ];
 
-const certifications = [
+const DEFAULT_CERTS = [
   { icon:"☁️", name:"AWS Cloud Practitioner", issuer:"Amazon Web Services", year:"2024",        status:"completed"  },
   { icon:"🛡️", name:"CompTIA Network+",       issuer:"CompTIA",            year:"2023",        status:"completed"  },
   { icon:"🪟", name:"Microsoft AZ-900",        issuer:"Microsoft Azure",    year:"In Progress", status:"inProgress" },
 ];
 
-const stats = [
+const STATS = [
   { num:"5+",  label:"Years IT Experience" },
   { num:"2",   label:"Live Apps Deployed"  },
   { num:"50+", label:"Systems Managed"     },
@@ -52,7 +40,21 @@ const stats = [
 ];
 
 const LINKEDIN_URL = "https://www.linkedin.com/in/rajib-adhikari-63191365/";
-const RESUME_URL   = "#"; // Google Drive resume PDF link halnu
+const RESUME_URL   = "#";
+
+/* ─── SCROLL REVEAL ──────────────────────────────────────── */
+function useReveal() {
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.1 }
+    );
+    const timer = setTimeout(() => {
+      document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    }, 100);
+    return () => { clearTimeout(timer); obs.disconnect(); };
+  });
+}
 
 /* ─── NAVBAR ─────────────────────────────────────────────── */
 function Navbar({ hasGallery, hasDownloads }) {
@@ -77,7 +79,7 @@ function Navbar({ hasGallery, hasDownloads }) {
             {links.map(l => <a key={l.label} className="navLink" href={l.href}>{l.label}</a>)}
             <a className="navCta" href="#contact">Hire Me</a>
           </div>
-          <button className={`hamburger ${open ? 'open':''}`} onClick={() => setOpen(o => !o)} aria-label="Toggle menu">
+          <button className={`hamburger ${open?'open':''}`} onClick={() => setOpen(o => !o)} aria-label="Toggle menu">
             <span /><span /><span />
           </button>
         </div>
@@ -96,47 +98,29 @@ function Navbar({ hasGallery, hasDownloads }) {
 function ContactForm() {
   const [form,   setForm]   = useState({ name:'', email:'', message:'' });
   const [status, setStatus] = useState('idle');
-
   const handleChange = e => setForm(f => ({ ...f, [e.target.name]: e.target.value }));
-
   const handleSubmit = async e => {
-    e.preventDefault();
-    setStatus('sending');
+    e.preventDefault(); setStatus('sending');
     try {
       const emailjs = (await import('@emailjs/browser')).default;
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        { name: form.name, email: form.email, message: form.message },        EMAILJS_PUBLIC_KEY
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID,
+        { name: form.name, email: form.email, message: form.message },
+        EMAILJS_PUBLIC_KEY
       );
-      setStatus('success');
-      setForm({ name:'', email:'', message:'' });
-    } catch (err) {
-      console.error(err);
-      setStatus('error');
-    }
+      setStatus('success'); setForm({ name:'', email:'', message:'' });
+    } catch (err) { console.error(err); setStatus('error'); }
   };
-
   return (
     <form className="contactForm" onSubmit={handleSubmit}>
       <div className="cfRow">
-        <div className="adminField">
-          <label>Name</label>
-          <input name="name" type="text" value={form.name} onChange={handleChange} placeholder="Your name" required />
-        </div>
-        <div className="adminField">
-          <label>Email</label>
-          <input name="email" type="email" value={form.email} onChange={handleChange} placeholder="your@email.com" required />
-        </div>
+        <div className="adminField"><label>Name</label><input name="name" type="text" value={form.name} onChange={handleChange} placeholder="Your name" required /></div>
+        <div className="adminField"><label>Email</label><input name="email" type="email" value={form.email} onChange={handleChange} placeholder="your@email.com" required /></div>
       </div>
-      <div className="adminField">
-        <label>Message</label>
-        <textarea name="message" rows={4} value={form.message} onChange={handleChange} placeholder="Tell me about your project or opportunity..." required />
-      </div>
-      {status === 'success' && <p className="cfSuccess">✓ Message sent! Rajib will get back to you soon.</p>}
-      {status === 'error'   && <p className="cfError">Something went wrong. Please email directly at rajibadh@gmail.com</p>}
-      <button type="submit" className="btn cfBtn" disabled={status === 'sending'}>
-        {status === 'sending' ? 'Sending...' : 'Send Message →'}
+      <div className="adminField"><label>Message</label><textarea name="message" rows={4} value={form.message} onChange={handleChange} placeholder="Tell me about your project or opportunity..." required /></div>
+      {status==='success' && <p className="cfSuccess">✓ Message sent! Rajib will get back to you soon.</p>}
+      {status==='error'   && <p className="cfError">Something went wrong. Please email directly at rajibadh@gmail.com</p>}
+      <button type="submit" className="btn cfBtn" disabled={status==='sending'}>
+        {status==='sending' ? 'Sending...' : 'Send Message →'}
       </button>
     </form>
   );
@@ -151,26 +135,38 @@ function BackToTop() {
     return () => window.removeEventListener('scroll', h);
   }, []);
   if (!show) return null;
-  return (
-    <button className="backToTop" onClick={() => window.scrollTo({ top:0, behavior:'smooth' })} aria-label="Back to top">↑</button>
-  );
+  return <button className="backToTop" onClick={() => window.scrollTo({top:0,behavior:'smooth'})}>↑</button>;
 }
 
 /* ─── MAIN ───────────────────────────────────────────────── */
 export default function Portfolio() {
-  const [gallery,   setGallery]   = useState([]);
-  const [downloads, setDownloads] = useState([]);
-  const [lightbox,  setLightbox]  = useState(null);
+  const [skills,   setSkills]   = useState([]);
+  const [projects, setProjects] = useState([]);
+  const [exp,      setExp]      = useState([]);
+  const [certs,    setCerts]    = useState([]);
+  const [gallery,  setGallery]  = useState([]);
+  const [downloads,setDownloads]= useState([]);
+  const [lightbox, setLightbox] = useState(null);
 
   useReveal();
 
   useEffect(() => {
-    const qG = query(collection(db,'gallery'),   orderBy('createdAt','desc'));
-    const qD = query(collection(db,'downloads'), orderBy('createdAt','desc'));
-    const unG = onSnapshot(qG, s => setGallery(s.docs.map(d => ({ id:d.id,...d.data() }))));
-    const unD = onSnapshot(qD, s => setDownloads(s.docs.map(d => ({ id:d.id,...d.data() }))));
-    return () => { unG(); unD(); };
+    const subs = [
+      onSnapshot(query(collection(db,'skills'),        orderBy('createdAt','asc')),  s => setSkills(s.docs.map(d=>({id:d.id,...d.data()})))),
+      onSnapshot(query(collection(db,'projects'),      orderBy('createdAt','asc')),  s => setProjects(s.docs.map(d=>({id:d.id,...d.data()})))),
+      onSnapshot(query(collection(db,'experience'),    orderBy('createdAt','asc')),  s => setExp(s.docs.map(d=>({id:d.id,...d.data()})))),
+      onSnapshot(query(collection(db,'certifications'),orderBy('createdAt','asc')),  s => setCerts(s.docs.map(d=>({id:d.id,...d.data()})))),
+      onSnapshot(query(collection(db,'gallery'),       orderBy('createdAt','desc')), s => setGallery(s.docs.map(d=>({id:d.id,...d.data()})))),
+      onSnapshot(query(collection(db,'downloads'),     orderBy('createdAt','desc')), s => setDownloads(s.docs.map(d=>({id:d.id,...d.data()})))),
+    ];
+    return () => subs.forEach(u => u());
   }, []);
+
+  // Use Firestore data if available, else fallback to defaults
+  const displaySkills   = skills.length   > 0 ? skills   : DEFAULT_SKILLS;
+  const displayProjects = projects.length > 0 ? projects : DEFAULT_PROJECTS;
+  const displayExp      = exp.length      > 0 ? exp      : DEFAULT_EXPERIENCE;
+  const displayCerts    = certs.length    > 0 ? certs    : DEFAULT_CERTS;
 
   return (
     <>
@@ -202,7 +198,7 @@ export default function Portfolio() {
             </div>
           </div>
           <div className="statsStrip">
-            {stats.map(s => <div className="statItem" key={s.label}><div className="statNum">{s.num}</div><div className="statLabel">{s.label}</div></div>)}
+            {STATS.map(s => <div className="statItem" key={s.label}><div className="statNum">{s.num}</div><div className="statLabel">{s.label}</div></div>)}
           </div>
         </section>
 
@@ -229,10 +225,10 @@ export default function Portfolio() {
         <section className="section reveal" id="skills">
           <div className="sectionHead centerText"><h2>Skills</h2><p className="muted">Tools and technologies I use in real projects and daily operations.</p></div>
           <div className="grid2">
-            {skills.map(g => (
-              <div className="card reveal" key={g.title}>
+            {displaySkills.map(g => (
+              <div className="card reveal" key={g.id||g.title}>
                 <h3>{g.title}</h3>
-                <div className="skills">{g.items.map(s => <span key={s} className="pill">{s}</span>)}</div>
+                <div className="skills">{(g.items||[]).map(s => <span key={s} className="pill">{s}</span>)}</div>
               </div>
             ))}
           </div>
@@ -242,14 +238,14 @@ export default function Portfolio() {
         <section className="section reveal" id="certifications">
           <div className="sectionHead centerText"><h2>Certifications</h2><p className="muted">Professional credentials and ongoing learning.</p></div>
           <div className="certGrid">
-            {certifications.map((c,i) => (
-              <div className="certCard reveal" key={i}>
+            {displayCerts.map((c,i) => (
+              <div className="certCard reveal" key={c.id||i}>
                 <div className="certIcon">{c.icon}</div>
                 <div className="certName">{c.name}</div>
                 <div className="certIssuer">{c.issuer}</div>
                 <div className="certYear">{c.year}</div>
                 <span className={`certStatus ${c.status==='inProgress'?'inProgress':''}`}>
-                  {c.status==='inProgress' ? '⏳ In Progress' : '✓ Completed'}
+                  {c.status==='inProgress'?'⏳ In Progress':'✓ Completed'}
                 </span>
               </div>
             ))}
@@ -261,14 +257,14 @@ export default function Portfolio() {
           <div className="sectionHead centerText"><h2>Experience</h2><p className="muted">Where I've applied my skills in the real world.</p></div>
           <div className="card reveal">
             <div className="timeline">
-              {experience.map((e,i) => (
-                <div className="timelineItem" key={i}>
+              {displayExp.map((e,i) => (
+                <div className="timelineItem" key={e.id||i}>
                   <div className="timelineDot">{e.icon}</div>
                   <div className="timelineContent">
                     <h3>{e.role}</h3>
                     <div className="timelineCompany">{e.company}</div>
                     <div className="timelinePeriod">{e.period}</div>
-                    <p className="timelineDesc">{e.desc}</p>
+                    <p className="timelineDesc">{e.description}</p>
                   </div>
                 </div>
               ))}
@@ -280,14 +276,14 @@ export default function Portfolio() {
         <section className="section reveal" id="projects">
           <div className="sectionHead centerText"><h2>Projects</h2><p className="muted">Selected work and live deployments.</p></div>
           <div className="grid2">
-            {projects.map(p => (
-              <div className="card projectCard reveal" key={p.name}>
+            {displayProjects.map((p,i) => (
+              <div className="card projectCard reveal" key={p.id||i}>
                 <div className="projectIcon">{p.icon}</div>
                 <div className="projectTop">
                   <h3>{p.name}</h3>
-                  <div className="tagRow">{p.tags.map(t => <span className="tag" key={t}>{t}</span>)}</div>
+                  <div className="tagRow">{(p.tags||[]).map(t => <span className="tag" key={t}>{t}</span>)}</div>
                 </div>
-                <p className="muted">{p.desc}</p>
+                <p className="muted">{p.description}</p>
                 <a className="link" href={p.link} target="_blank" rel="noreferrer">View Live Project →</a>
               </div>
             ))}
@@ -330,10 +326,7 @@ export default function Portfolio() {
 
         {/* CONTACT */}
         <section className="section reveal" id="contact">
-          <div className="sectionHead centerText">
-            <h2>Let's Connect</h2>
-            <p className="muted">Open for IT roles, freelance projects, or collaboration.</p>
-          </div>
+          <div className="sectionHead centerText"><h2>Let's Connect</h2><p className="muted">Open for IT roles, freelance projects, or collaboration.</p></div>
           <div className="grid2">
             <div className="card reveal">
               <div className="contactInfo">
@@ -377,7 +370,6 @@ export default function Portfolio() {
           </div>
         </div>
       )}
-
       <BackToTop />
     </>
   );
