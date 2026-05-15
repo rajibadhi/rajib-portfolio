@@ -34,7 +34,7 @@ const projects = [
   {
     icon: "🌐",
     name: "Portfolio Website",
-    desc: "Personal portfolio built with React and Vite, featuring a Firebase-powered dynamic content system. Deployed on Vercel with CI/CD.",
+    desc: "Personal portfolio with a Firebase-powered dynamic CMS — admin panel for managing gallery photos and software downloads. Deployed on Vercel with CI/CD.",
     link: "https://rajibadhikari.com.np",
     tags: ["React", "Vite", "Firebase", "Vercel"],
   },
@@ -44,6 +44,7 @@ const experience = [
   {
     icon: "🖥️",
     role: "Senior IT Executive",
+    company: "Maharaja Casino (Marriott Kathmandu)",
     period: "Current",
     desc: "End-to-end IT operations — server administration, Active Directory, Sophos firewall management, CCTV infrastructure, network troubleshooting, and user support for a premium hospitality environment.",
   },
@@ -52,34 +53,57 @@ const experience = [
     role: "Frontend & Mobile Developer",
     company: "Freelance / Personal Projects",
     period: "2024 – Present",
-    desc: "Designing and shipping production web and mobile applications using React, React Native (Expo), and Firebase. Focus on performance, clean UI, and real-world deployment pipelines.",
+    desc: "Designing and shipping production web and mobile apps using React, React Native (Expo), and Firebase. Focus on performance, clean UI, and real-world deployment pipelines.",
+  },
+];
+
+const certifications = [
+  {
+    icon: "☁️",
+    name: "AWS Cloud Practitioner",
+    issuer: "Amazon Web Services",
+    year: "2024",
+    status: "completed",
+  },
+  {
+    icon: "🛡️",
+    name: "CompTIA Network+",
+    issuer: "CompTIA",
+    year: "2023",
+    status: "completed",
+  },
+  {
+    icon: "🪟",
+    name: "Microsoft AZ-900",
+    issuer: "Microsoft Azure",
+    year: "In Progress",
+    status: "inProgress",
   },
 ];
 
 const stats = [
   { num: "5+", label: "Years IT Experience" },
-  { num: "2", label: "Live Apps Deployed" },
-  { num: "50+", label: "Systems Managed" },
-  { num: "100%", label: "Uptime Focus" },
+  { num: "2",  label: "Live Apps Deployed"  },
+  { num: "50+",label: "Systems Managed"     },
+  { num: "100%",label: "Uptime Focus"       },
 ];
+
+// ── Update these links ──
+const LINKEDIN_URL = "https://linkedin.com/in/rajibadh";   // update gara
+const GITHUB_URL   = "https://github.com/rajibadhi";
+const RESUME_URL   = "#"; // Google Drive resume link halincha paxi
 
 /* ─── COMPONENT ───────────────────────────────────────────── */
 export default function Portfolio() {
-  const [gallery, setGallery]     = useState([]);
+  const [gallery,   setGallery]   = useState([]);
   const [downloads, setDownloads] = useState([]);
-  const [lightbox, setLightbox]   = useState(null);
+  const [lightbox,  setLightbox]  = useState(null);
 
-  // Live fetch from Firestore
   useEffect(() => {
     const qG = query(collection(db, 'gallery'),   orderBy('createdAt', 'desc'));
     const qD = query(collection(db, 'downloads'), orderBy('createdAt', 'desc'));
-
-    const unsubG = onSnapshot(qG, snap =>
-      setGallery(snap.docs.map(d => ({ id: d.id, ...d.data() })))
-    );
-    const unsubD = onSnapshot(qD, snap =>
-      setDownloads(snap.docs.map(d => ({ id: d.id, ...d.data() })))
-    );
+    const unsubG = onSnapshot(qG, s => setGallery(s.docs.map(d => ({ id: d.id, ...d.data() }))));
+    const unsubD = onSnapshot(qD, s => setDownloads(s.docs.map(d => ({ id: d.id, ...d.data() }))));
     return () => { unsubG(); unsubD(); };
   }, []);
 
@@ -92,6 +116,7 @@ export default function Portfolio() {
           <div className="navLinks">
             <a className="navLink" href="#about">About</a>
             <a className="navLink" href="#skills">Skills</a>
+            <a className="navLink" href="#certifications">Certs</a>
             <a className="navLink" href="#experience">Experience</a>
             <a className="navLink" href="#projects">Projects</a>
             {gallery.length   > 0 && <a className="navLink" href="#gallery">Gallery</a>}
@@ -125,6 +150,11 @@ export default function Portfolio() {
                 <div className="heroActions">
                   <a href="#contact" className="btn">Contact Me</a>
                   <a href="#projects" className="btn ghost">View Work →</a>
+                  {RESUME_URL !== "#" && (
+                    <a href={RESUME_URL} target="_blank" rel="noreferrer" className="btn outline">
+                      ↓ Resume
+                    </a>
+                  )}
                 </div>
               </div>
               <div className="heroRight">
@@ -137,7 +167,6 @@ export default function Portfolio() {
             </div>
           </div>
 
-          {/* STATS STRIP */}
           <div className="statsStrip">
             {stats.map(s => (
               <div className="statItem" key={s.label}>
@@ -152,12 +181,12 @@ export default function Portfolio() {
         <section className="section" id="about">
           <div className="sectionHead centerText">
             <h2>About Me</h2>
-            <p className="muted">Nepal-based IT professional with strong hands-on experience in infrastructure support and modern web development.</p>
+            <p className="muted">Nepal-based IT professional with hands-on experience in infrastructure and modern web development.</p>
           </div>
           <div className="grid2">
             <div className="card">
               <h3>Who I Am</h3>
-              <p className="muted">I work across end-to-end IT operations — from user support to server administration, networking, firewall management, and CCTV systems. I also build and ship production apps with React and React Native, focused on performance and clean UI.</p>
+              <p className="muted">I work across end-to-end IT operations — from user support to server administration, networking, firewall management, and CCTV systems. I also build and ship production apps with React and React Native.</p>
             </div>
             <div className="card">
               <h3>What I Focus On</h3>
@@ -192,12 +221,33 @@ export default function Portfolio() {
             <p className="muted">Tools and technologies I use in real projects and daily operations.</p>
           </div>
           <div className="grid2">
-            {skills.map(group => (
-              <div className="card" key={group.title}>
-                <h3>{group.title}</h3>
+            {skills.map(g => (
+              <div className="card" key={g.title}>
+                <h3>{g.title}</h3>
                 <div className="skills">
-                  {group.items.map(s => <span key={s} className="pill">{s}</span>)}
+                  {g.items.map(s => <span key={s} className="pill">{s}</span>)}
                 </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* CERTIFICATIONS */}
+        <section className="section" id="certifications">
+          <div className="sectionHead centerText">
+            <h2>Certifications</h2>
+            <p className="muted">Professional credentials and ongoing learning.</p>
+          </div>
+          <div className="certGrid">
+            {certifications.map((c, i) => (
+              <div className="certCard" key={i}>
+                <div className="certIcon">{c.icon}</div>
+                <div className="certName">{c.name}</div>
+                <div className="certIssuer">{c.issuer}</div>
+                <div className="certYear">{c.year}</div>
+                <span className={`certStatus ${c.status === 'inProgress' ? 'inProgress' : ''}`}>
+                  {c.status === 'inProgress' ? '⏳ In Progress' : '✓ Completed'}
+                </span>
               </div>
             ))}
           </div>
@@ -249,7 +299,7 @@ export default function Portfolio() {
           </div>
         </section>
 
-        {/* GALLERY — dynamic, shows only if data exists */}
+        {/* GALLERY */}
         {gallery.length > 0 && (
           <section className="section" id="gallery">
             <div className="sectionHead centerText">
@@ -258,24 +308,16 @@ export default function Portfolio() {
             </div>
             <div className="galleryGrid">
               {gallery.map(photo => (
-                <div
-                  className="galleryItem"
-                  key={photo.id}
-                  onClick={() => setLightbox(photo)}
-                >
+                <div className="galleryItem" key={photo.id} onClick={() => setLightbox(photo)}>
                   <img src={photo.url} alt={photo.title || ''} loading="lazy" />
-                  {photo.title && (
-                    <div className="galleryOverlay">
-                      <span>{photo.title}</span>
-                    </div>
-                  )}
+                  {photo.title && <div className="galleryOverlay"><span>{photo.title}</span></div>}
                 </div>
               ))}
             </div>
           </section>
         )}
 
-        {/* DOWNLOADS — dynamic, shows only if data exists */}
+        {/* DOWNLOADS */}
         {downloads.length > 0 && (
           <section className="section" id="downloads">
             <div className="sectionHead centerText">
@@ -287,17 +329,10 @@ export default function Portfolio() {
                 <div className="card dlCard" key={dl.id}>
                   <div className="dlIcon">{dl.icon || '💾'}</div>
                   <h3>{dl.name}</h3>
-                  {dl.version && <span className="dlVersion">v{dl.version}</span>}
+                  {dl.version  && <span className="dlVersion">v{dl.version}</span>}
                   <p className="muted">{dl.description}</p>
                   {dl.category && <span className="dlCategory">{dl.category}</span>}
-                  <a
-                    className="btn small dlBtn"
-                    href={dl.url}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    ↓ Download
-                  </a>
+                  <a className="btn small dlBtn" href={dl.url} target="_blank" rel="noreferrer">↓ Download</a>
                 </div>
               ))}
             </div>
@@ -326,8 +361,19 @@ export default function Portfolio() {
               </div>
               <div>
                 <p className="label">Availability</p>
-                <p className="value" style={{ color: 'var(--accent2)' }}>Open to opportunities</p>
+                <p className="value" style={{ color: 'var(--accent3)' }}>Open to opportunities</p>
               </div>
+            </div>
+            <div className="divider" />
+            <div className="socialLinks">
+              <a className="socialBtn" href={LINKEDIN_URL} target="_blank" rel="noreferrer">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                LinkedIn
+              </a>
+              <a className="socialBtn" href={GITHUB_URL} target="_blank" rel="noreferrer">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                GitHub
+              </a>
             </div>
           </div>
         </section>
@@ -339,8 +385,9 @@ export default function Portfolio() {
         <div>© {new Date().getFullYear()} Rajib Adhikari — Kathmandu, Nepal</div>
         <div className="footerLinks">
           <a className="footerLink" href="mailto:rajibadh@gmail.com">Email</a>
+          <a className="footerLink" href={LINKEDIN_URL} target="_blank" rel="noreferrer">LinkedIn</a>
+          <a className="footerLink" href={GITHUB_URL} target="_blank" rel="noreferrer">GitHub</a>
           <a className="footerLink" href="https://cashmate.rajibadhikari.com.np" target="_blank" rel="noreferrer">CashMate</a>
-          <a className="footerLink" href="#about">About</a>
         </div>
       </footer>
 
@@ -349,7 +396,7 @@ export default function Portfolio() {
         <div className="lightboxOverlay" onClick={() => setLightbox(null)}>
           <div className="lightboxInner" onClick={e => e.stopPropagation()}>
             <img src={lightbox.url} alt={lightbox.title || ''} />
-            {lightbox.title && <p className="lightboxTitle">{lightbox.title}</p>}
+            {lightbox.title       && <p className="lightboxTitle">{lightbox.title}</p>}
             {lightbox.description && <p className="lightboxDesc">{lightbox.description}</p>}
             <button className="lightboxClose" onClick={() => setLightbox(null)}>✕ Close</button>
           </div>
