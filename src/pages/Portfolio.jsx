@@ -50,7 +50,7 @@ const roles = ["IT Infrastructure Expert", "React Developer", "Network Engineer"
 
 const whatIDo = [
   { icon:"🖥️", title:"IT Infrastructure & Networking", desc:"Full-stack infrastructure — Windows Server, Active Directory, HPE switch management, VLAN configuration, file server setup with permissions, network printer sharing, and end-to-end network troubleshooting." },
-  { icon:"🔒", title:"Security & Access Systems",      desc:"Sophos firewall management, CCTV/IP camera installation, biometric attendance device setup (installation, admin unlock, sales), access control systems, and VPN configuration for secure remote access." },
+  { icon:"🔒", title:"Security & Access Systems",      desc:"Sophos firewall management, CCTV/IP camera installation, biometric attendance device setup (installation, admin unlock), access control systems, and VPN configuration for secure remote access." },
   { icon:"🔧", title:"Hardware & Technical Support",    desc:"Computer and laptop repair, PC assembly, server hardware configuration, peripheral setup, helpdesk support, and preventive maintenance — plus hands-on training for any software platform." },
   { icon:"💻", title:"Software & Development",          desc:"Custom utility tools that simplify daily workflows, full web and mobile apps with React & React Native, VMware virtualization, and deployment via modern CI/CD pipelines." },
 ];
@@ -58,9 +58,9 @@ const whatIDo = [
 const capabilities = [
   { cat:"Server & Virtualization", icon:"🖥️", items:["Windows Server Administration","Active Directory & Group Policy","File Server Setup & Configuration","File/Folder Sharing & Permissions","VMware vSphere / ESXi","Server Hardware Configuration","Backup & Disaster Recovery","User Account Management"] },
   { cat:"Networking",              icon:"🌐", items:["HPE Switch Management & Configuration","VLAN Setup & Management","Network Printer Sharing","Sophos Firewall Rules & Policies","VPN Configuration","TCP/IP, DNS, DHCP","Network Troubleshooting & Diagnostics","Structured Cabling & Rack Setup"] },
-  { cat:"Security & Access",       icon:"🔒", items:["CCTV / IP Camera Installation & Config","Access Control System Installation","Biometric Attendance Device Setup","Attendance Device Admin Unlock","Attendance Software Management","Sophos Firewall Security","Secure Remote Access","Surveillance System Monitoring"] },
+  { cat:"Security & Access",       icon:"🔒", items:["CCTV / IP Camera Installation & Config","Access Control System Installation","Biometric Attendance Device Setup","Attendance Device Admin Unlock","Attendance Software Management","Sophos Firewall Security","Secure Remote Access"] },
   { cat:"Hardware & Support",      icon:"🔧", items:["Computer & Laptop Repair","PC Assembly & Build","Hardware Troubleshooting","Peripheral Installation","Printer Setup & Maintenance","IT Helpdesk & User Support","Preventive Maintenance","Asset Tracking & Lifecycle Management"] },
-  { cat:"Software & Training",     icon:"📚", items:["Attendance Software Sales & Training","Any Software Training & Onboarding","Custom Utility Tool Development","Office Suite & Productivity Tools","POS System Setup","Documentation & SOPs","Remote Desktop Support","End-User Training Programs"] },
+  { cat:"Software & Training",     icon:"📚", items:["Attendance Software Training","Any Software Training & Onboarding","Custom Utility Tool Development","Office Suite & Productivity Tools","POS System Setup","Documentation & SOPs","Remote Desktop Support","End-User Training Programs"] },
   { cat:"Development & Cloud",     icon:"☁️", items:["React & React Native (Expo)","TypeScript / JavaScript","Firebase (Firestore, Auth)","Vite & Modern Build Tools","AWS Cloud Services","Vercel & CI/CD Deployment","Git & GitHub","AdMob Integration","HTML / CSS","Docker Basics","EAS Build & Release"] },
 ];
 
@@ -70,7 +70,7 @@ const projects = [
 ];
 
 const experience = [
-  { icon:"🖥️", role:"Senior IT Executive", company:"Hospitality & Gaming Industry", period:"2015 – Present", desc:"End-to-end IT operations — server administration, Active Directory, Sophos firewall, CCTV infrastructure, network troubleshooting, and user support. Over a decade of hands-on experience keeping critical systems running 24/7." },
+  { icon:"🖥️", role:"Senior IT Executive", company:"Hospitality & IT Industry", period:"2015 – Present", desc:"End-to-end IT operations — server administration, Active Directory, Sophos firewall, CCTV infrastructure, network troubleshooting, and user support. Over a decade of hands-on experience keeping critical systems running 24/7." },
   { icon:"💻", role:"Frontend & Mobile Developer", company:"Freelance / Personal Projects", period:"2024 – Present", desc:"Designing and shipping production web and mobile apps using React, React Native (Expo), and Firebase. Focus on clean UI, performance, and real-world deployment." },
 ];
 
@@ -112,7 +112,7 @@ function Navbar({ hasGallery, hasDownloads }) {
       <nav className={`nav ${scrolled ? 'nav--scrolled' : ''}`}>
         <div className="nav__inner">
           <a href="#" className="nav__logo" onClick={close}>
-            <span className="nav__logo-icon">⚡</span>
+            <span className="nav__logo-icon">💻</span>
             <span>RAJIB<span className="nav__logo-dot">.</span></span>
           </a>
           <ul className="nav__links">
@@ -265,7 +265,7 @@ export default function Portfolio() {
             <div className="about__highlights">
               <div className="about__hl"><span className="about__hl-icon">🎯</span><div><strong>Focus</strong><span>Enterprise IT + Modern Dev</span></div></div>
               <div className="about__hl"><span className="about__hl-icon">📍</span><div><strong>Based in</strong><span>Kathmandu, Nepal</span></div></div>
-              <div className="about__hl"><span className="about__hl-icon">💼</span><div><strong>Industry</strong><span>Hospitality & Gaming</span></div></div>
+              <div className="about__hl"><span className="about__hl-icon">💼</span><div><strong>Industry</strong><span>Hospitality / IT Services</span></div></div>
               <div className="about__hl"><span className="about__hl-icon">🚀</span><div><strong>Status</strong><span>Open to opportunities</span></div></div>
             </div>
           </div>
@@ -412,7 +412,7 @@ export default function Portfolio() {
       {/* ── FOOTER ── */}
       <footer className="footer">
         <div className="footer__inner">
-          <span className="footer__logo">⚡ RAJIB<span className="nav__logo-dot">.</span></span>
+          <span className="footer__logo">💻 RAJIB<span className="nav__logo-dot">.</span></span>
           <span className="footer__copy">© {new Date().getFullYear()} Rajib Adhikari</span>
           <div className="footer__links">
             <a href="mailto:rajibadh@gmail.com">Email</a>
