@@ -210,7 +210,7 @@ export default function Portfolio() {
         <section className="section reveal" id="about">
           <div className="sectionHead centerText"><h2>About Me</h2><p className="muted">Nepal-based IT professional with hands-on experience in infrastructure and modern web development.</p></div>
           <div className="grid2">
-            <div className="card reveal"><h3>Who I Am</h3><p className="muted">I work across end-to-end IT operations — from user support to server administration, networking, firewall management, and CCTV systems. I also build and ship production apps with React and React Native.</p></div>
+            <div className="card reveal"><h3>Who I Am</h3><p className="muted">I work across end-to-end IT operations — from user support to server administration, networking, firewall management, and CCTV systems. I also build and deploy production-grade applications using React and React Native, with experience in troubleshooting, system optimization, cloud services, hardware maintenance, and IT infrastructure management.</p></div>
             <div className="card reveal"><h3>What I Focus On</h3><ul className="list"><li>Stable systems and fast incident resolution</li><li>Security-first mindset and access control</li><li>Documentation and preventive maintenance</li><li>Scalable web and mobile app development</li><li>Real-world deployment: Vercel, EAS Build, Firebase</li></ul></div>
           </div>
         </section>
