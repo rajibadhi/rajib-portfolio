@@ -238,6 +238,23 @@ export default function Portfolio() {
           </div>
         </section>
 
+        {/* CERTIFICATIONS */}
+        <section className="section reveal" id="certifications">
+          <div className="sectionHead centerText"><h2>Certifications</h2><p className="muted">Professional credentials and ongoing learning.</p></div>
+          <div className="certGrid">
+            {certifications.map((c,i) => (
+              <div className="certCard reveal" key={i}>
+                <div className="certIcon">{c.icon}</div>
+                <div className="certName">{c.name}</div>
+                <div className="certIssuer">{c.issuer}</div>
+                <div className="certYear">{c.year}</div>
+                <span className={`certStatus ${c.status==='inProgress'?'inProgress':''}`}>
+                  {c.status==='inProgress' ? '⏳ In Progress' : '✓ Completed'}
+                </span>
+              </div>
+            ))}
+          </div>
+        </section>
 
         {/* EXPERIENCE */}
         <section className="section reveal" id="experience">
