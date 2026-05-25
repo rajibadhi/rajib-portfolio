@@ -222,8 +222,8 @@ ul { list-style: none; }
 }
 
 .avatar {
-  width: 140px; height: 140px; border-radius: 999px; object-fit: cover;
-  border: 3px solid rgba(212,168,67,0.4);
+  width: 150px; height: 150px; border-radius: 999px; object-fit: cover;
+  border: 3px solid rgba(212,168,67,0.4); background: #fff;
   box-shadow: 0 0 0 6px rgba(212,168,67,0.08), 0 16px 40px rgba(0,0,0,0.5);
 }
 
@@ -314,9 +314,9 @@ ul { list-style: none; }
 .about-avatar, .name-display, .title-display { position: relative; z-index: 2; }
 
 .about-avatar {
-  width: 150px; height: 150px; border-radius: 999px; object-fit: cover;
+  width: 160px; height: 160px; border-radius: 999px; object-fit: cover;
   border: 3px solid rgba(212,168,67,0.4); margin-bottom: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4); background: #fff;
 }
 .name-display {
   font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 700;

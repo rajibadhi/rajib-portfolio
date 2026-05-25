@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { db } from '../firebase';
-import profile from '../assets/rajib.jpeg';
+import profile from '../assets/rajib.jpeg'; // cartoon developer avatar
 
 /* ─── EMAILJS KEYS ────────────────────────────────────────── */
 const EMAILJS_SERVICE_ID  = "service_pbi0pzj";
@@ -41,18 +41,12 @@ const projects = [
 ];
 
 const experience = [
-  { icon:"🖥️", role:"Senior IT Executive",        company:"Hospitality & Gaming Industry", period:"Current",        desc:"End-to-end IT operations — server administration, Active Directory, Sophos firewall management, CCTV infrastructure, network troubleshooting, and user support in a high-availability enterprise environment." },
+  { icon:"🖥️", role:"Senior IT Executive",        company:"Hospitality & Gaming Industry", period:"2015 – Present", desc:"End-to-end IT operations — server administration, Active Directory, Sophos firewall management, CCTV infrastructure, network troubleshooting, and user support in a high-availability enterprise environment. Over a decade of hands-on experience keeping critical systems running." },
   { icon:"💻", role:"Frontend & Mobile Developer", company:"Freelance / Personal Projects",  period:"2024 – Present", desc:"Designing and shipping production web and mobile apps using React, React Native (Expo), and Firebase. Focus on performance, clean UI, and real-world deployment pipelines." },
 ];
 
-const certifications = [
-  { icon:"☁️", name:"AWS Cloud Practitioner", issuer:"Amazon Web Services", year:"2024",        status:"completed"  },
-  { icon:"🛡️", name:"CompTIA Network+",       issuer:"CompTIA",            year:"2023",        status:"completed"  },
-  { icon:"🪟", name:"Microsoft AZ-900",        issuer:"Microsoft Azure",    year:"In Progress", status:"inProgress" },
-];
-
 const stats = [
-  { num:"5+",  label:"Years Experience" },
+  { num:"10+", label:"Years Experience" },
   { num:"2",   label:"Live Apps"        },
   { num:"50+", label:"Systems Managed"  },
   { num:"100%",label:"Uptime Focus"     },
@@ -94,7 +88,6 @@ function Navbar({ hasGallery, hasDownloads }) {
     { label:"About",      href:"#about"          },
     { label:"Services",   href:"#services"       },
     { label:"Skills",     href:"#skills"         },
-    { label:"Certs",      href:"#certifications" },
     { label:"Experience", href:"#experience"     },
     { label:"Projects",   href:"#projects"       },
     ...(hasGallery   ? [{ label:"Gallery",   href:"#gallery"   }] : []),
@@ -268,7 +261,7 @@ export default function Portfolio() {
               <h3>Your Reliable IT Partner</h3>
               <p>I work across end-to-end IT operations — from user support to server administration, networking, firewall management, and CCTV systems. My focus is on keeping enterprise environments stable, secure, and efficient.</p>
               <p>Beyond infrastructure, I build and ship production apps with React and React Native. I believe in bridging the gap between traditional IT and modern development — bringing reliability and innovation together.</p>
-              <p>Currently working in Nepal's hospitality and gaming industry while pursuing cloud certifications and building side projects that solve real problems.</p>
+              <p>Currently working in Nepal's hospitality and gaming industry while building side projects that solve real-world problems.</p>
             </div>
           </div>
         </section>
@@ -307,28 +300,6 @@ export default function Portfolio() {
                 <div className="service-icon">{g.icon}</div>
                 <h3>{g.title}</h3>
                 <div className="pills">{g.items.map(s => <span key={s} className="pill">{s}</span>)}</div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* CERTIFICATIONS */}
-        <section className="section" id="certifications">
-          <div className="section-header fade-in">
-            <h2>Certifications</h2>
-            <div className="divider" />
-            <p>Professional credentials and ongoing learning</p>
-          </div>
-          <div className="cert-grid">
-            {certifications.map((c,i) => (
-              <div className="cert-card fade-in" key={i}>
-                <div className="cert-icon">{c.icon}</div>
-                <div className="cert-name">{c.name}</div>
-                <div className="cert-issuer">{c.issuer}</div>
-                <div className="cert-year">{c.year}</div>
-                <span className={`cert-status ${c.status==='inProgress'?'inProgress':''}`}>
-                  {c.status==='inProgress' ? '⏳ In Progress' : '✓ Completed'}
-                </span>
               </div>
             ))}
           </div>
