@@ -46,20 +46,22 @@ function TypeWriter({ words }) {
 }
 
 /* ─── STATIC DATA ─────────────────────────────────────────── */
-const roles = ["IT Infrastructure Expert", "React Developer", "Cloud Enthusiast", "Network Security Pro"];
+const roles = ["IT Infrastructure Expert", "React Developer", "Network Engineer", "Hardware Specialist", "Software Trainer"];
 
 const whatIDo = [
-  { icon:"🖥️", title:"IT Operations",        desc:"Enterprise helpdesk, asset lifecycle management, backup strategies, and preventive maintenance that keeps systems at 100% uptime." },
-  { icon:"🏗️", title:"Infrastructure",       desc:"Windows Server & Active Directory administration, Linux systems, CCTV/IP camera networks, and user policy enforcement." },
-  { icon:"🔒", title:"Network & Security",    desc:"Sophos firewall rules, VPN tunnels, network diagnostics, and secure remote access for distributed teams." },
-  { icon:"💻", title:"Web & App Development", desc:"Production-grade web and mobile apps with React, React Native (Expo), Firebase, and modern CI/CD pipelines." },
+  { icon:"🖥️", title:"IT Infrastructure & Networking", desc:"Full-stack infrastructure — Windows Server, Active Directory, HPE switch management, VLAN configuration, file server setup with permissions, network printer sharing, and end-to-end network troubleshooting." },
+  { icon:"🔒", title:"Security & Access Systems",      desc:"Sophos firewall management, CCTV/IP camera installation, biometric attendance device setup (installation, admin unlock, sales), access control systems, and VPN configuration for secure remote access." },
+  { icon:"🔧", title:"Hardware & Technical Support",    desc:"Computer and laptop repair, PC assembly, server hardware configuration, peripheral setup, helpdesk support, and preventive maintenance — plus hands-on training for any software platform." },
+  { icon:"💻", title:"Software & Development",          desc:"Custom utility tools that simplify daily workflows, full web and mobile apps with React & React Native, VMware virtualization, and deployment via modern CI/CD pipelines." },
 ];
 
-const techStack = [
-  { cat:"Infrastructure", items:["Windows Server","Active Directory","Linux","Sophos Firewall","CCTV/IP Camera","Networking"] },
-  { cat:"Cloud & DevOps",  items:["AWS","Firebase","Vercel","Docker","EAS Build","Backup & Recovery"] },
-  { cat:"Development",     items:["React","React Native","Expo","TypeScript","JavaScript","Vite","HTML/CSS"] },
-  { cat:"Tools",           items:["Git & GitHub","AdMob","Remote Support","Documentation","Asset Tracking"] },
+const capabilities = [
+  { cat:"Server & Virtualization", icon:"🖥️", items:["Windows Server Administration","Active Directory & Group Policy","File Server Setup & Configuration","File/Folder Sharing & Permissions","VMware vSphere / ESXi","Server Hardware Configuration","Backup & Disaster Recovery","User Account Management"] },
+  { cat:"Networking",              icon:"🌐", items:["HPE Switch Management & Configuration","VLAN Setup & Management","Network Printer Sharing","Sophos Firewall Rules & Policies","VPN Configuration","TCP/IP, DNS, DHCP","Network Troubleshooting & Diagnostics","Structured Cabling & Rack Setup"] },
+  { cat:"Security & Access",       icon:"🔒", items:["CCTV / IP Camera Installation & Config","Access Control System Installation","Biometric Attendance Device Setup","Attendance Device Admin Unlock","Attendance Software Management","Sophos Firewall Security","Secure Remote Access","Surveillance System Monitoring"] },
+  { cat:"Hardware & Support",      icon:"🔧", items:["Computer & Laptop Repair","PC Assembly & Build","Hardware Troubleshooting","Peripheral Installation","Printer Setup & Maintenance","IT Helpdesk & User Support","Preventive Maintenance","Asset Tracking & Lifecycle Management"] },
+  { cat:"Software & Training",     icon:"📚", items:["Attendance Software Sales & Training","Any Software Training & Onboarding","Custom Utility Tool Development","Office Suite & Productivity Tools","POS System Setup","Documentation & SOPs","Remote Desktop Support","End-User Training Programs"] },
+  { cat:"Development & Cloud",     icon:"☁️", items:["React & React Native (Expo)","TypeScript / JavaScript","Firebase (Firestore, Auth)","Vite & Modern Build Tools","AWS Cloud Services","Vercel & CI/CD Deployment","Git & GitHub","AdMob Integration","HTML / CSS","Docker Basics","EAS Build & Release"] },
 ];
 
 const projects = [
@@ -81,6 +83,31 @@ const stats = [
 
 const LINKEDIN_URL = "https://www.linkedin.com/in/rajib-adhikari-63191365/";
 
+/* ─── CAPABILITY CARD (EXPANDABLE) ────────────────────────── */
+function CapCard({ data, delay }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className={`cap reveal ${open ? 'cap--open' : ''}`} style={{ '--delay': `${delay}s` }}>
+      <button className="cap__head" onClick={() => setOpen(o => !o)}>
+        <span className="cap__icon">{data.icon}</span>
+        <span className="cap__cat">{data.cat}</span>
+        <span className="cap__count">{data.items.length} skills</span>
+        <span className="cap__arrow">{open ? '−' : '+'}</span>
+      </button>
+      <div className="cap__body" style={{ maxHeight: open ? `${data.items.length * 44 + 32}px` : '0px' }}>
+        <div className="cap__items">
+          {data.items.map(item => (
+            <div className="cap__item" key={item}>
+              <span className="cap__check">✓</span>
+              <span>{item}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ─── NAVBAR ─────────────────────────────────────────────── */
 function Navbar({ hasGallery, hasDownloads }) {
   const [open, setOpen] = useState(false);
@@ -95,7 +122,7 @@ function Navbar({ hasGallery, hasDownloads }) {
   const links = [
     { label:"About",      href:"#about" },
     { label:"Services",   href:"#services" },
-    { label:"Tech Stack", href:"#stack" },
+    { label:"Skills",    href:"#stack" },
     { label:"Experience", href:"#experience" },
     { label:"Projects",   href:"#projects" },
     ...(hasGallery   ? [{ label:"Gallery",   href:"#gallery" }] : []),
@@ -282,18 +309,14 @@ export default function Portfolio() {
           </div>
         </section>
 
-        {/* ── TECH STACK ── */}
+        {/* ── FULL CAPABILITIES ── */}
         <section className="sec" id="stack">
-          <div className="sec__label reveal">TECH STACK</div>
-          <h2 className="sec__title reveal">Tools I Work With</h2>
-          <div className="stack">
-            {techStack.map((g,i) => (
-              <div className="stack__group reveal" key={g.cat} style={{'--delay': `${i * 0.08}s`}}>
-                <h3 className="stack__cat">{g.cat}</h3>
-                <div className="stack__pills">
-                  {g.items.map(t => <span className="stack__pill" key={t}>{t}</span>)}
-                </div>
-              </div>
+          <div className="sec__label reveal">FULL CAPABILITIES</div>
+          <h2 className="sec__title reveal">Everything I Can Do</h2>
+          <p className="sec__subtitle reveal">Click any category to see detailed skills</p>
+          <div className="caps">
+            {capabilities.map((g,i) => (
+              <CapCard key={g.cat} data={g} delay={i * 0.08} />
             ))}
           </div>
         </section>
