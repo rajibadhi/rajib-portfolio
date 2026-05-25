@@ -83,30 +83,7 @@ const stats = [
 
 const LINKEDIN_URL = "https://www.linkedin.com/in/rajib-adhikari-63191365/";
 
-/* ─── CAPABILITY CARD (EXPANDABLE) ────────────────────────── */
-function CapCard({ data, delay }) {
-  const [open, setOpen] = useState(false);
-  return (
-    <div className={`cap reveal ${open ? 'cap--open' : ''}`} style={{ '--delay': `${delay}s` }}>
-      <button className="cap__head" onClick={() => setOpen(o => !o)}>
-        <span className="cap__icon">{data.icon}</span>
-        <span className="cap__cat">{data.cat}</span>
-        <span className="cap__count">{data.items.length} skills</span>
-        <span className="cap__arrow">{open ? '−' : '+'}</span>
-      </button>
-      <div className="cap__body" style={{ maxHeight: open ? `${data.items.length * 44 + 32}px` : '0px' }}>
-        <div className="cap__items">
-          {data.items.map(item => (
-            <div className="cap__item" key={item}>
-              <span className="cap__check">✓</span>
-              <span>{item}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
+/* ─── (removed accordion — using simple grid now) ── */
 
 /* ─── NAVBAR ─────────────────────────────────────────────── */
 function Navbar({ hasGallery, hasDownloads }) {
@@ -309,14 +286,21 @@ export default function Portfolio() {
           </div>
         </section>
 
-        {/* ── FULL CAPABILITIES ── */}
+        {/* ── SKILLS ── */}
         <section className="sec" id="stack">
-          <div className="sec__label reveal">FULL CAPABILITIES</div>
-          <h2 className="sec__title reveal">Everything I Can Do</h2>
-          <p className="sec__subtitle reveal">Click any category to see detailed skills</p>
-          <div className="caps">
+          <div className="sec__label reveal">SKILLS</div>
+          <h2 className="sec__title reveal">Technical Skills</h2>
+          <div className="skills-grid">
             {capabilities.map((g,i) => (
-              <CapCard key={g.cat} data={g} delay={i * 0.08} />
+              <div className="sk reveal" key={g.cat} style={{'--delay': `${i * 0.08}s`}}>
+                <div className="sk__head">
+                  <span className="sk__icon">{g.icon}</span>
+                  <h3 className="sk__cat">{g.cat}</h3>
+                </div>
+                <div className="sk__pills">
+                  {g.items.map(t => <span className="stack__pill" key={t}>{t}</span>)}
+                </div>
+              </div>
             ))}
           </div>
         </section>
