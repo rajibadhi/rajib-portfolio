@@ -70,7 +70,7 @@ const projects = [
 ];
 
 const experience = [
-  { icon:"🖥️", role:"Senior IT Executive", company:"Hospitality & IT Industry", period:"2015 – Present", desc:"End-to-end IT operations — server administration, Active Directory, Sophos firewall, CCTV infrastructure, network troubleshooting, and user support. Over a decade of hands-on experience keeping critical systems running 24/7." },
+  { icon:"🖥️", role:"Assistant Manager – IT", company:"Hospitality & IT Industry", period:"2015 – Present", desc:"End-to-end IT operations — server administration, Active Directory, Sophos firewall, CCTV infrastructure, network troubleshooting, and user support. Over a decade of hands-on experience keeping critical systems running 24/7." },
   { icon:"💻", role:"Frontend & Mobile Developer", company:"Freelance / Personal Projects", period:"2024 – Present", desc:"Designing and shipping production web and mobile apps using React, React Native (Expo), and Firebase. Focus on clean UI, performance, and real-world deployment." },
 ];
 
