@@ -230,7 +230,7 @@ export default function Portfolio() {
               <img src={profile} alt="Rajib Adhikari" className="hero__avatar" />
               <div className="hero__card-info">
                 <span className="hero__card-name">Rajib Adhikari</span>
-                <span className="hero__card-role">Senior IT Executive</span>
+                <span className="hero__card-role">Assistant Manager – IT</span>
                 <span className="hero__card-loc">📍 Kathmandu, Nepal</span>
               </div>
               <div className="hero__card-stats">
