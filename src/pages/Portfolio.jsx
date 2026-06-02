@@ -65,8 +65,10 @@ const capabilities = [
 ];
 
 const projects = [
-  { icon:"💰", name:"CashMate Nepal", desc:"Business ledger & personal finance app — React Native, Firebase real-time sync, AdMob monetization, deployed on Vercel.", link:"https://cashmate.rajibadhikari.com.np", tags:["React Native","Expo","Firebase","TypeScript","AdMob"] },
-  { icon:"🌐", name:"Portfolio Website", desc:"This site — dynamic CMS with Firebase admin panel for gallery & downloads, deployed on Vercel with CI/CD.", link:"https://rajibadhikari.com.np", tags:["React","Vite","Firebase","Vercel"] },
+  { icon:"💰", name:"CashMate Nepal",    desc:"Business ledger & personal finance app — React Native, Firebase real-time sync, AdMob monetization, deployed on Vercel.", link:"https://cashmate.rajibadhikari.com.np", tags:["React Native","Expo","Firebase","TypeScript","AdMob"], internal:false },
+  { icon:"🌐", name:"Portfolio Website", desc:"This site — dynamic CMS with Firebase admin panel for gallery & downloads, deployed on Vercel with CI/CD.", link:"https://rajibadhikari.com.np", tags:["React","Vite","Firebase","Vercel"], internal:false },
+  { icon:"🔔", name:"RenewalRadar",      desc:"Internal enterprise renewal & reminder management system — automated email alerts, Nepal timezone scheduling, role-based access, Excel import/export, and calendar dashboard.", link:null, tags:["Python","Flask","SQLAlchemy","APScheduler","Zoho SMTP","IIS"], internal:true },
+  { icon:"🗄️", name:"AssetVault",        desc:"Internal IT asset lifecycle management system — hardware & software inventory tracking, assignment logs, maintenance schedules, and depreciation reporting for enterprise infrastructure.", link:null, tags:["Python","Flask","SQLite","Bootstrap","Windows Server"], internal:true },
 ];
 
 const experience = [
@@ -76,7 +78,7 @@ const experience = [
 
 const stats = [
   { num:"10+", label:"Years in IT" },
-  { num:"2",   label:"Live Apps" },
+  { num:"4+",  label:"Projects Built" },
   { num:"50+", label:"Systems Managed" },
   { num:"100%",label:"Uptime Focus" },
 ];
@@ -336,10 +338,14 @@ export default function Portfolio() {
                 <div className="proj__head">
                   <span className="proj__emoji">{p.icon}</span>
                   <h3>{p.name}</h3>
+                  {p.internal && <span className="proj__internal-badge">🔒 Internal Tool</span>}
                 </div>
                 <p>{p.desc}</p>
                 <div className="proj__tags">{p.tags.map(t => <span key={t} className="stack__pill">{t}</span>)}</div>
-                <a className="proj__link" href={p.link} target="_blank" rel="noreferrer">View Live →</a>
+                {p.link
+                  ? <a className="proj__link" href={p.link} target="_blank" rel="noreferrer">View Live →</a>
+                  : <span className="proj__link proj__link--internal">Enterprise / Private Deployment</span>
+                }
               </div>
             ))}
           </div>
