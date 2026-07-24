@@ -67,6 +67,7 @@ const capabilities = [
 const projects = [
   { icon:"💰", name:"CashMate Nepal",    desc:"Business ledger & personal finance app — React Native, Firebase real-time sync, AdMob monetization, deployed on Vercel.", link:"https://cashmate.rajibadhikari.com.np", tags:["React Native","Expo","Firebase","TypeScript","AdMob"], internal:false },
   { icon:"🌐", name:"Portfolio Website", desc:"This site — dynamic CMS with Firebase admin panel for gallery & downloads, deployed on Vercel with CI/CD.", link:"https://rajibadhikari.com.np", tags:["React","Vite","Firebase","Vercel"], internal:false },
+  { icon:"💬", name:"LocalChat",         desc:"Self-hosted internal messaging platform — real-time chat with Socket.io, native camera capture with in-app cropping, delivery/read receipts, reply & edit, and role-based admin controls. Shipped as a web app, installable PWA, and a native Android app (Capacitor), all running on a private local server with automated backups.", link:null, tags:["Node.js","Express","Socket.io","React","Capacitor","Android","PWA"], internal:true },
   { icon:"🔔", name:"RenewalRadar",      desc:"Internal enterprise renewal & reminder management system — automated email alerts, Nepal timezone scheduling, role-based access, Excel import/export, and calendar dashboard.", link:null, tags:["Python","Flask","SQLAlchemy","APScheduler","Zoho SMTP","IIS"], internal:true },
   { icon:"🗄️", name:"AssetVault",        desc:"Internal IT asset lifecycle management system — hardware & software inventory tracking, assignment logs, maintenance schedules, and depreciation reporting for enterprise infrastructure.", link:null, tags:["Python","Flask","SQLite","Bootstrap","Windows Server"], internal:true },
 ];
@@ -78,7 +79,7 @@ const experience = [
 
 const stats = [
   { num:"10+", label:"Years in IT" },
-  { num:"4+",  label:"Projects Built" },
+  { num:"5+",  label:"Projects Built" },
   { num:"50+", label:"Systems Managed" },
   { num:"100%",label:"Uptime Focus" },
 ];
