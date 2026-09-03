@@ -6,7 +6,7 @@ import profile from '../assets/rajib.jpeg';
 /* ─── EMAILJS KEYS ────────────────────────────────────────── */
 const EMAILJS_SERVICE_ID  = "service_pbi0pzj";
 const EMAILJS_TEMPLATE_ID = "template_02sbq9j";
-const EMAILJS_PUBLIC_KEY  = "XoIU40ZK41ykpS0ms";
+const EMAILJS_PUBLIC_KEY  = "XolU40ZK41ykpS0ms";
 
 /* ─── SCROLL REVEAL ───────────────────────────────────────── */
 function useReveal() {
