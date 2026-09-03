@@ -87,6 +87,23 @@ const stats = [
 
 /* ─── (removed accordion — using simple grid now) ── */
 
+/* ─── ACTIVE-SECTION TRACKING (scrollspy) ───────────────── */
+function useActiveSection(ids) {
+  const [active, setActive] = useState(ids[0]);
+  const key = ids.join(',');
+  useEffect(() => {
+    const els = key.split(',').map(id => document.getElementById(id)).filter(Boolean);
+    if (!els.length) return;
+    const obs = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); }),
+      { rootMargin: '-40% 0px -55% 0px', threshold: 0 }
+    );
+    els.forEach(el => obs.observe(el));
+    return () => obs.disconnect();
+  }, [key]);
+  return active;
+}
+
 /* ─── NAVBAR ─────────────────────────────────────────────── */
 function Navbar({ hasGallery, hasDownloads }) {
   const [open, setOpen] = useState(false);
@@ -108,6 +125,7 @@ function Navbar({ hasGallery, hasDownloads }) {
     ...(hasDownloads ? [{ label:"Downloads", href:"#downloads" }] : []),
     { label:"Contact",    href:"#contact" },
   ];
+  const active = useActiveSection(links.map(l => l.href.slice(1)));
 
   return (
     <>
@@ -118,20 +136,36 @@ function Navbar({ hasGallery, hasDownloads }) {
             <span>RAJIB<span className="nav__logo-dot">.</span></span>
           </a>
           <ul className="nav__links">
-            {links.map(l => <li key={l.label}><a className="nav__link" href={l.href}>{l.label}</a></li>)}
+            {links.map(l => (
+              <li key={l.label}>
+                <a
+                  className={`nav__link${active === l.href.slice(1) ? ' nav__link--active' : ''}`}
+                  href={l.href}
+                >
+                  {l.label}
+                </a>
+              </li>
+            ))}
             <li><a className="btn btn--gold nav__cta" href="#contact">Let's Talk</a></li>
           </ul>
-          <button className={`burger ${open ? 'burger--open' : ''}`} onClick={() => setOpen(o => !o)} aria-label="Menu">
+          <button className={`burger ${open ? 'burger--open' : ''}`} onClick={() => setOpen(o => !o)} aria-label="Menu" aria-expanded={open}>
             <span /><span /><span />
           </button>
         </div>
       </nav>
-      {open && (
-        <div className="mob-menu">
-          {links.map(l => <a key={l.label} className="mob-menu__link" href={l.href} onClick={close}>{l.label}</a>)}
-          <a className="btn btn--gold mob-menu__cta" href="#contact" onClick={close}>Let's Talk</a>
-        </div>
-      )}
+      <div className={`mob-menu${open ? ' mob-menu--open' : ''}`}>
+        {links.map(l => (
+          <a
+            key={l.label}
+            className={`mob-menu__link${active === l.href.slice(1) ? ' mob-menu__link--active' : ''}`}
+            href={l.href}
+            onClick={close}
+          >
+            {l.label}
+          </a>
+        ))}
+        <a className="btn btn--gold mob-menu__cta" href="#contact" onClick={close}>Let's Talk</a>
+      </div>
     </>
   );
 }
