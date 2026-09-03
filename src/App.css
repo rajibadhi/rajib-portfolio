@@ -23,7 +23,9 @@
   --nav-h:      64px;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap');
+/* Inter + Space Grotesk ab index.css ko top ma load huncha —
+   (yaha rakhda Vite ko production build ma yo @import bich ma pardaa
+   invalid vaera browser le silently drop garne bug thiyo, tesaile hatayeko) */
 
 /* ─── RESET ──────────────────────────────────────────────── */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
